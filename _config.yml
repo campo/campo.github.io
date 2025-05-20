@@ -81,21 +81,6 @@ sass:
   style: :expanded # You might prefer to minify using :compressed
 
 # Use the following plug-ins
-
-
-
-
-
-# _config.yml
-# Basic Jekyll configuration
-
-# Set this to your GitHub repo name if using user/organization site
-# baseurl: "" # Example: "/my-project" for project pages
-# url: "https://campo.github.io"
-# theme: null
-# markdown: kramdown
-
-# Enable GitHub Pages support
 plugins:
   - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
   - jekyll-paginate
