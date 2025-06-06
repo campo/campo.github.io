@@ -5,58 +5,44 @@ layout: default
 title: Home
 -->
 
-# Hello, world
+<div class="home">
+  <section class="intro">
+    <h1>{{ site.title }}</h1>
+    <p>{{ site.description }}</p>
+  </section>
 
-This is a minimalist Jekyll site using JetBrains Mono.
-
-- Automatic dark/light mode
-- Clean typography
-- No clutter
-
-Built for GitHub Pages.
-
-<div class="posts">
-  {% for post in paginator.posts %}
-    <article class="post">
-      <a href="{{ site.baseurl }}{{ post.url }}">
-        <h1>{{ post.title }}</h1>
-
-        <div>
-          <p class="post_date">{{ post.date | date: "%B %e, %Y" }}</p>
-        </div>
-      </a>
-      <div class="entry">
-        {{ post.excerpt }}
+  <section class="posts">
+    <h2>Latest Posts</h2>
+    {% for post in paginator.posts %}
+    <article class="post-preview">
+      <h3>
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </h3>
+      <div class="post-meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}">
+          {{ post.date | date: "%B %-d, %Y" }}
+        </time>
       </div>
-
-      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+      {% if post.description %}
+      <p>{{ post.description }}</p>
+      {% else %}
+      <p>{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+      {% endif %}
     </article>
-  {% endfor %}
+    {% endfor %}
+  </section>
 
-  <!-- pagination -->
   {% if paginator.total_pages > 1 %}
-  <div class="pagination">
+  <nav class="pagination">
     {% if paginator.previous_page %}
-      <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo; Prev</a>
-    {% else %}
-      <span>&laquo; Prev</span>
+    <a href="{{ paginator.previous_page_path | relative_url }}">&laquo; Previous</a>
     {% endif %}
 
-    {% for page in (1..paginator.total_pages) %}
-      {% if page == paginator.page %}
-        <span class="webjeda">{{ page }}</span>
-      {% elsif page == 1 %}
-        <a href="{{ '/' | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a>
-      {% else %}
-        <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
-      {% endif %}
-    {% endfor %}
+    <span class="page-number">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
 
     {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Next &raquo;</a>
-    {% else %}
-      <span>Next &raquo;</span>
+    <a href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
     {% endif %}
-  </div>
+  </nav>
   {% endif %}
 </div>
